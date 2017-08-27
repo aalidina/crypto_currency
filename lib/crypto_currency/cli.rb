@@ -19,16 +19,19 @@ class CryptoCurrency::CLI
         puts ethereum
       when "3"
         puts bitcoin_cash
+      when "list"
+        list
       else
         "invalid selection select 1,2,3 or type list"
       end
     end
   end
 
-  def currency_names #option prompt
+  def list #option prompt
     puts "Bitcoin"
     puts "Ethereum"
     puts "Bitcoin cash"
+    @currency_price = CryptoCurrency::Currency_price.now
   end
 
   def bitcoin
@@ -38,9 +41,11 @@ class CryptoCurrency::CLI
 
   def ethereum
     @ethereum_price = 313.83
+    puts "ethereum current price #{@ethereum_price}"
   end
 
   def bitcoin_cash
     @bitcoin_cash_price = 673.03
+    puts "Bitcoin cash current price #{@bitcoin_cash_price}"
   end
 end
