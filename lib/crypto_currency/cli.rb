@@ -3,35 +3,38 @@ class CryptoCurrency::CLI
 
   def call
     puts "Welcome to the Cryptocurrency Dashboard"
-    menu
+    list
   end
 
   def menu
-    input = nil
-    while input != "exit"
-      puts "Select the current name to see the current rate"
-      puts " type 1 for bitcoin, 2 for ethereum or 3 for bitcoin cash"
+      puts "Select the currency name to see the current price"
+      puts " Type 1 for Bitcoin, 2 for Ethereum or 3 for Bitcoin Cash"
+      input = ""
       input = gets.strip
-      case input
-      when "1"
+      if input == "1"
         puts bitcoin
-      when "2"
+      elsif input == "2"
         puts ethereum
-      when "3"
+      elsif input == "3"
         puts bitcoin_cash
-      when "list"
+      elsif input == "list"
         list
+      elsif input == "exit"
+        puts "Good Bye!"
       else
-        "invalid selection select 1,2,3 or type list"
+      puts  "Invalid selection"
+      menu
       end
-    end
   end
 
   def list #option prompt
-    puts "Bitcoin"
-    puts "Ethereum"
-    puts "Bitcoin cash"
-    @currency_price = CryptoCurrency::Currency_price.now
+    puts <<~DOC
+    1. "Bitcoin"
+    2. "Ethereum"
+    3. "Bitcoin cash"
+    DOC
+    menu
+    # @currency_price = CryptoCurrency::Currency_price.all
   end
 
   def bitcoin
