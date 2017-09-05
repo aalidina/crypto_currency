@@ -3,7 +3,7 @@ class CryptoCurrency::CLI
 
   def call
     puts "Welcome to the Cryptocurrency Dashboard"
-    list
+    menu
   end
 
   def menu
@@ -11,14 +11,11 @@ class CryptoCurrency::CLI
       puts " Type 1 for Bitcoin, 2 for Ethereum or 3 for Bitcoin Cash"
       input = ""
       input = gets.strip
+
       if input == "1"
         puts bitcoin
-      elsif input == "2"
-        puts ethereum
-      elsif input == "3"
-        puts bitcoin_cash
       elsif input == "list"
-        list
+        puts list
       elsif input == "exit"
         puts "Good Bye!"
       else
@@ -27,19 +24,22 @@ class CryptoCurrency::CLI
       end
   end
 
-  def list #option prompt
-    puts <<~DOC
-    1. "Bitcoin"
-    2. "Ethereum"
-    3. "Bitcoin cash"
-    DOC
-    menu
-    # @currency_price = CryptoCurrency::Currency_price.all
+  def list
+    @lists = CryptoCurrency::Currency_price.all
+    @lists[0..9].each.with_index(1) do |data, index|
+      # puts "#{index}. #{data.name}  #{data.price}  #{data.marketcap}"
+      binding.pry
+       menu
+    end
   end
 
-  def bitcoin
-    @bitcoin_price =  4078.43
-    puts "Bitcoin current price #{@bitcoin_price}"
+  def bitcoin_price
+    @currency = CryptoCurrency::Currency_price.all
+    @currency.each.with_index(1) do |data, index|
+      if data.include?("Bitcoin")
+        puts "#{index}. #{data}"
+     end
+   end
   end
 
   def ethereum
@@ -51,4 +51,6 @@ class CryptoCurrency::CLI
     @bitcoin_cash_price = 673.03
     puts "Bitcoin cash current price #{@bitcoin_cash_price}"
   end
+
+
 end
