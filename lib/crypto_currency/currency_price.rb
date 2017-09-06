@@ -16,7 +16,7 @@ class CryptoCurrency::Currency_price
 
    def self.scraper_currecies
      doc = Nokogiri::HTML(open("https://coinmarketcap.com"))
-
+    
      currency = self.new #initialize new currency
      currency.name = doc.css("td.currency-name a").map{|a| a.text} # returning an array instead of a string
      currency.price = doc.css("td.no-wrap a.price").map{|a| a.text}
