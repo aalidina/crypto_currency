@@ -41,7 +41,7 @@ class CryptoCurrency::CLI
     puts "4. Bitcoin Cash"
     puts "5. Litecoin"
     puts "6. Dash"
-    puts "7. NEM"
+    puts "7. NEW"
     puts "8. Monero"
     puts "9. IOTA"
     puts "10. Ethereum Classic"
