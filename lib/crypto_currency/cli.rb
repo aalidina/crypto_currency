@@ -64,43 +64,4 @@ class CryptoCurrency::CLI
       puts "#{index + 9}. #{data.name[9]}: #{data.price[9]}, #{data.marketcap[9]}"
     end
   end
-
-  def bitcoin
-    crypto.each.with_index(1) do |data, index|
-      puts "--CURRENCY NAME -- PRICE  ----  MARKETCAP ----- "
-      puts "#{index}. #{data.name[0]}  |   #{data.price[0]}  |  #{data.marketcap[0]}"
-      puts ""
-        menu
-     end
-  end
-
-  def ethereum
-    crypto.each.with_index(1)do |data, index|
-        puts "--CURRENCY NAME -- PRICE  ----  MARKETCAP ----- "
-        puts " #{index}. #{data.name[1]}   |  #{data.price[1]}  |  #{data.marketcap[1]}"
-        puts ""
-        menu
-     end
-  end
-
-  def bitcoin_cash
-    crypto.each.with_index(1) do |data, index|
-      puts "--CURRENCY NAME --   PRICE  ----  MARKETCAP ----- "
-      puts "#{index}. #{data.name[2]}   |  #{data.price[2]}  |  #{data.marketcap[2]}"
-      puts ""
-        menu
-     end
-  end
-
-  def ripple
-    crypto.each.with_index(1) do |data, index|
-      puts "--CURRENCY NAME --   PRICE  ----  MARKETCAP ----- "
-      puts "#{index}. #{data.name[3]}   |  #{data.price[3]}  |  #{data.marketcap[3]}"
-      puts ""
-        menu
-     end
-  end
-
-
-
 end
