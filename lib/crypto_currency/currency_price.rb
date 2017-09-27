@@ -1,27 +1,33 @@
+require 'pry'
 class CryptoCurrency::Currency_price
-  attr_accessor :name, :price, :marketcap, :url
+  attr_accessor :name, :price, :marketcap
 
+  @@all = []
 
-  def self.all
-    self.scarpe_coinmarketcap
+  def initialize
+    @@all << self
   end
 
-  def self.scarpe_coinmarketcap
-    currencies = []
-    currencies << self.scraper_currecies
-
-    currencies # returns a array with name, price and marketcap data
+  def self.all
+    @@all
   end
 
 
    def self.scraper_currecies
      doc = Nokogiri::HTML(open("https://coinmarketcap.com"))
+     doc.css('tr')[1..10].each do |curr|
+       currency = self.new #initialize new currency once
+       currency.name = curr.css('.currency-name').text.strip
+       currency.price = curr.css('td.no-wrap a.price').text.strip
+       currency.marketcap = curr.css('.market-cap').text.strip
+     end
+   end
 
-     currency = self.new #initialize new currency
-     currency.name = doc.css("td.currency-name a").map{|name| name.text}.first(10) # returning an array instead of a string
-     currency.price = doc.css("td.no-wrap a.price").map{|price| price.text}.first(10)
-     currency.marketcap = doc.css("td.market-cap").map{|marketcap| marketcap.text.strip}.first(10)
-
-     currency
+   def self.price_less_than(price)
+     all.map do |currency|
+       if currency.price.to_i <= price
+        puts "#{currency.name}, #{currency.price}, #{currency.marketcap} "
+      end
+     end
    end
 end
