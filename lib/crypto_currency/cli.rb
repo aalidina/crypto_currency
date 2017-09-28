@@ -22,6 +22,7 @@ class CryptoCurrency::CLI
       currencies = CryptoCurrency::Currency_price.price_less_than(input.to_i)
       currencies.each do |currency|
            puts "#{currency.name}: $#{currency.price}, #{currency.marketcap}"
+           menu
       end
     elsif input.to_i.between?(1,10)
       currency = CryptoCurrency::Currency_price.all[input - 1]
