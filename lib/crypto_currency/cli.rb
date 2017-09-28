@@ -16,12 +16,19 @@ class CryptoCurrency::CLI
       currency_list
     elsif input == "exit"
       puts "Good Bye!"
+    elsif input == "filter"
+      puts "Enter a price you would like to filter currencies for: "
+      input = gets.strip
+      currencies = CryptoCurrency::Currency_price.price_less_than(input.to_i)
+      currencies.each do |currency|
+           puts "#{currency.name}: $#{currency.price}, #{currency.marketcap}"
+      end
     elsif input.to_i.between?(1,10)
       currency = CryptoCurrency::Currency_price.all[input - 1]
-      puts "#{currency.name}: #{currency.price}:, #{currency.marketcap}:"
+      puts "#{currency.name}: #{currency.price}, #{currency.marketcap}"
       menu
     else
-      puts "Invalid input please enter number between 1 - 10, exit, or list"
+      puts "Invalid input please enter number between 1 - 10, exit, list or filter"
       menu
     end
   end
@@ -42,12 +49,13 @@ class CryptoCurrency::CLI
     puts "10. Ethereum Classic"
     puts "11. Type list to see all currency prices"
     puts "12. Type exit to exit"
+    puts "13. Type filter to filter by price"
   end
 
   def currency_list
     CryptoCurrency::Currency_price.all.each.with_index(1) do |data, index|
       puts "--CURRENCY NAME -- PRICE -- MARKETCAP --"
-      puts "#{index}.  #{data.name}:      #{data.price}, #{data.marketcap}"
+      puts "#{index}.  #{data.name}:     #{data.price}, #{data.marketcap}"
     end
     menu
   end
